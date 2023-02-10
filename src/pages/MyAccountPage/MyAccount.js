@@ -7,7 +7,8 @@ import {
 } from "./myaccount-styled";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTE } from "../../routes/route";
-import { useUserState, useUserDispatch } from "../../context/UserContext";
+import { useUserState } from "../../context/UserContext";
+import { LayoutWrapper } from "../../components/common-styled";
 
 const MyAccount = () => {
   const navigate = useNavigate();
@@ -23,17 +24,19 @@ const MyAccount = () => {
     }
   }, []);
   return (
-    <MyAccountWrapper>
-      <AccountNavWrapper>
-        <h1>MY ACCOUNT</h1>
-        <GotoMyDetails>
-          <Link to={ROUTE.MYDETIALS.link}>MY DETAILS</Link>
-        </GotoMyDetails>
-        <GotoOrderHistory>
-          <Link to={ROUTE.USERORDERHISTORY.link}>ORDER HISTORY</Link>
-        </GotoOrderHistory>
-      </AccountNavWrapper>
-    </MyAccountWrapper>
+    <LayoutWrapper>
+      <MyAccountWrapper urlPath={process.env.PUBLIC_URL + "/img/main.jpg"}>
+        <AccountNavWrapper>
+          <h1>MY ACCOUNT</h1>
+          <GotoMyDetails>
+            <Link to={ROUTE.MYDETIALS.link}>MY DETAILS</Link>
+          </GotoMyDetails>
+          <GotoOrderHistory>
+            <Link to={ROUTE.USERORDERHISTORY.link}>ORDER HISTORY</Link>
+          </GotoOrderHistory>
+        </AccountNavWrapper>
+      </MyAccountWrapper>
+    </LayoutWrapper>
   );
 };
 

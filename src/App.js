@@ -22,7 +22,6 @@ function App() {
     }
   }, []);
 
-
   return (
     <>
       <Reset />
@@ -31,8 +30,11 @@ function App() {
       <Routes>
         {ROUTE_ARR.map((route, index) => {
           return (
-            <Route path={route.path} element={<route.element count={count} setCount={setCount} />} key={index} />
-
+            <Route
+              path={route.path}
+              element={<route.element count={count} setCount={setCount} />}
+              key={index}
+            />
           );
         })}
       </Routes>

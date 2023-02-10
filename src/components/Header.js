@@ -34,10 +34,7 @@ const Header = () => {
       <HeaderContainer>
         <LogoBox>
           <Link to="/">
-            <img
-              src="https://global.mardimercredi.com/img/logo-red.png"
-              alt="LOGO"
-            />
+            <img src={process.env.PUBLIC_URL + "/img/logo7.png"} alt="LOGO" />
           </Link>
         </LogoBox>
         <HeaderNav>

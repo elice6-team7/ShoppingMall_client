@@ -1,16 +1,11 @@
 import styled from "styled-components";
 
 export const MyAccountWrapper = styled.div`
-  position: relative;
-  top: 100px;
-  left: 300px;
-  width: calc(100% - 300px);
-  height: calc(100vh - 100px);
-
-  background-image: url("https://global.mardimercredi.com/img/imgmain-intro-1014-2.png");
+  width: 100%;
+  height: 100vh;
+  background-image: url(${(props) => props.urlPath});
   background-repeat: no-repeat;
   background-size: cover;
-
   display: flex;
   align-items: center;
   justify-content: center;

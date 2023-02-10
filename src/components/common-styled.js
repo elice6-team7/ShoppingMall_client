@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const LayoutWrapper = styled.div`
   position: relative;
-  top: 100px;
-  left: 300px;
+  top: 60px;
+  left: 280px;
   width: calc(100% - 300px);
 `;
 

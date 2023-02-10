@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { CartWrapper, CartList, PayInfo } from "./styled";
-import CartView from './CartView';
-import jwt_decode from "jwt-decode";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
+
+import CartView from "./CartView";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+
 const Cart = ({ count, setCount }) => {
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0);
@@ -14,13 +15,11 @@ const Cart = ({ count, setCount }) => {
   // 로컬스토리지의 cart 불러옴
   useEffect(() => {
     setCartList(JSON.parse(localStorage.getItem("cart")));
-  }, [])
+  }, []);
 
-
-  // 장바구니 수량 버튼에 적용할 함수 
+  // 장바구니 수량 버튼에 적용할 함수
   const setQuantity = (type, _id, quantity) => {
     if (type === "plus") {
-      console.log(_id)
       const found = cartList.filter((item) => item._id === _id)[0];
       const idx = cartList.indexOf(found);
       const cartItem = {
@@ -32,17 +31,25 @@ const Cart = ({ count, setCount }) => {
         quantity: quantity,
       };
 
-
-      setCartList([...cartList.slice(0, idx), cartItem, ...cartList.slice(idx + 1)]);
-      localStorage.setItem("cart", JSON.stringify([...cartList.slice(0, idx), cartItem, ...cartList.slice(idx + 1)]))
-
-
+      setCartList([
+        ...cartList.slice(0, idx),
+        cartItem,
+        ...cartList.slice(idx + 1),
+      ]);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          ...cartList.slice(0, idx),
+          cartItem,
+          ...cartList.slice(idx + 1),
+        ])
+      );
     } else {
       if (quantity === 0) return;
 
-      // 장바구니에 있는 상품 
+      // 장바구니에 있는 상품
       const found = cartList.filter((item) => item._id === _id)[0];
-      cartList.length
+      cartList.length;
       const idx = cartList.indexOf(found);
       const cartItem = {
         _id: found._id,
@@ -53,65 +60,60 @@ const Cart = ({ count, setCount }) => {
         quantity: quantity,
       };
 
-
-      setCartList([...cartList.slice(0, idx), cartItem, ...cartList.slice(idx + 1)]);
-      localStorage.setItem("cart", JSON.stringify([...cartList.slice(0, idx), cartItem, ...cartList.slice(idx + 1)]))
+      setCartList([
+        ...cartList.slice(0, idx),
+        cartItem,
+        ...cartList.slice(idx + 1),
+      ]);
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          ...cartList.slice(0, idx),
+          cartItem,
+          ...cartList.slice(idx + 1),
+        ])
+      );
     }
-
-
-  }
-
+  };
 
   // 총 가격
   const getTotalPrice = () => {
-
-    return cartList.reduce((tot, el) =>
-      tot + (el.price * el.quantity)
-      , 0)
-
-  }
+    return cartList.reduce((tot, el) => tot + el.price * el.quantity, 0);
+  };
   // 상품 수
   const getTotalCount = () => {
-    return cartList.reduce((tot, el) =>
-      tot + (el.quantity)
-      , 0)
-  }
+    return cartList.reduce((tot, el) => tot + el.quantity, 0);
+  };
 
   useEffect(() => {
-
     cartList && setPrice(getTotalPrice());
     cartList && setCount(getTotalCount());
     cartList && setTotal(getTotalPrice());
-
-  }, [cartList])
-
+  }, [cartList]);
 
   // 장바구니 부분삭제
-  const handleRemove = index => {
-    setCartList(current => {
+  const handleRemove = (index) => {
+    setCartList((current) => {
       const newList = [...current];
       newList.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(newList))
+      localStorage.setItem("cart", JSON.stringify(newList));
       return newList;
     });
   };
 
   // 장바구니 전체삭제
-  const handleRemoveAll = index => {
-
-    setCartList(current => {
+  const handleRemoveAll = (index) => {
+    setCartList((current) => {
       const newList = [];
 
-      localStorage.setItem("cart", JSON.stringify(newList))
+      localStorage.setItem("cart", JSON.stringify(newList));
       return newList;
     });
   };
 
-
   return (
     <>
       <CartWrapper>
-
         <div>
           <p>
             <span>장바구니</span> &#62; 주문결제 &#62; 주문완료{" "}
@@ -132,15 +134,29 @@ const Cart = ({ count, setCount }) => {
               <ul>
                 <li>총 상품개수 {Number(count).toLocaleString("ko-KR")} 개 </li>
               </ul>
-              <p>총 결제금액 {Number(total + delivery).toLocaleString("ko-KR")} 원</p>
+              <p>
+                총 결제금액 {Number(total + delivery).toLocaleString("ko-KR")}{" "}
+                원
+              </p>
             </div>
-            <button className="btn btn-outline-primary mb-3" onClick={handleRemoveAll}>쇼핑백 비우기</button>
-            <Button className="btn btn-outline-primary mb-3">
-              <Link to="/order" state={{
-                total,
-                price,
-                count,
-              }}>주문하기</Link>
+
+            <button
+              className="btn btn-outline-primary mb-3"
+              onClick={handleRemoveAll}
+            >
+              쇼핑백 비우기
+            </button>
+            <Button>
+              <Link
+                to="/order"
+                state={{
+                  total,
+                  price,
+                  count,
+                }}
+              >
+                주문하기
+              </Link>
             </Button>
           </PayInfo>
         </div>

@@ -16,27 +16,27 @@ const Nav = () => {
         console.log(err);
       }
     })();
-  }, [])
+  }, []);
 
   return (
     <>
       <NavContainer>
-          <ul>
-            <li><LinkStyle to="/product/all">전체 상품</LinkStyle></li>
-            {
-              categories.map(category => {
-                if(!category[1]) {
-                  return (
-                    <li key={category[0]._id}>
-                      <LinkStyle to={`/product/${category[0]._id}`}>
-                        {category[0].title}
-                      </LinkStyle>
-                    </li>
-                  )
-                }
-              })
+        <ul>
+          <li>
+            <LinkStyle to="/product/all">전체 상품</LinkStyle>
+          </li>
+          {categories.map((category) => {
+            if (!category[1]) {
+              return (
+                <li key={category[0]._id}>
+                  <LinkStyle to={`/product/${category[0]._id}`}>
+                    {category[0].title}
+                  </LinkStyle>
+                </li>
+              );
             }
-          </ul>
+          })}
+        </ul>
       </NavContainer>
     </>
   );

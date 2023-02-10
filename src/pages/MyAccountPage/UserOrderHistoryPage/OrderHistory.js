@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { LayoutWrapper } from "../../../components/common-styled";
-import { OrderHistoryWrapper, TitleWrapper } from "./userorderhistory-styled";
-import UserOrderedItemList from "./UserOrderedItemList";
+import { OrderHistoryWrapper, TitleWrapper } from "./orderhistory-styled";
+import UserOrderedItemList from "./OrderedItemList";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../routes/route";
 
