@@ -150,9 +150,11 @@ const Cart = ({ count, setCount }) => {
               <Link
                 to="/order"
                 state={{
-                  total,
-                  price,
                   count,
+                  total,
+                  // product,
+                  // productId,
+                  // productSize,
                 }}
               >
                 주문하기

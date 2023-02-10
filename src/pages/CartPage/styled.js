@@ -31,15 +31,7 @@ export const CartWrapper = styled.div`
 export const CartList = styled.div`
   width: 62.5%;
   margin: 0 2.5% 0 0;
-  img {
-        width: 150px;
-        margin: 0 20px;
-      }
-  label {
-    margin-left: 10px;
-  }
-
-  ul {
+  ol {
     li {
       display: flex;
       margin-bottom: 40px;
