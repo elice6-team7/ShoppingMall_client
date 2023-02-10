@@ -54,7 +54,7 @@ export const ProductWrapper = styled.div`
       flex-basis: 33%;
       flex-shrink: 0;
       margin-bottom: 80px;
-      min-height: 750px;
+      min-height: 600px;
       box-sizing: border-box;
     }
     li:not(:nth-child(3n + 1)) {
@@ -66,11 +66,21 @@ export const ProductWrapper = styled.div`
     li img {
       display: block;
       width: 100%;
+      max-height: 450px;
+      transition: all 0.3s;
+    }
+
+    li:hover img {
+      filter: opacity(0.7);
+    }
+    li:hover div {
+      font-weight: bold;
     }
   }
 
   div {
     text-align: center;
+    margin-top: 20px;
     p {
       margin-bottom: 5px;
       font-size: 20px;

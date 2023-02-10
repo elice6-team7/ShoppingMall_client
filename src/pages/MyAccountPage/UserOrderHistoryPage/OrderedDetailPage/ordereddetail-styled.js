@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
-export const UserOrderedDetailWrapper = styled.div`
+export const OrderedDetailWrapper = styled.div`
   max-width: 1000px;
+  padding-bottom: 80px;
 `;
+
+export const OrderedDetailListWrapper = styled.div``;
+
+export const OrderedDetailItemWrapper = styled.div``;
 
 export const UserOrderInfo = styled.div`
   margin-top: 40px;

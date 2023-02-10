@@ -1,62 +1,52 @@
-import React from 'react';
-import { useState } from 'react';
-import Counter from '../ProductPage/ProductDetail/Counter';
+import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
-const itemList = ({ carts, onComplete, onRemove, count, setCount }) => {
-
-
-  // 제품 수량 카운팅
-  const handleQuantity = (quantity) => {
-    if (quantity === "plus") {
-      setCount(count + 1);
-    } else {
-      if (count === 1) return;
-      setCount(count - 1);
-    }
-  };
-
+const cartList = ({ cartList, onRemove, setQuantity }) => {
   return (
     <div>
       <ol>
-        {carts.map((item, index) => {
-          return (
-            <li key={item.key} className={item.isCompleted ? 'complete' : ''}>
-
-              <img
-                src={item.imageUrl}
-                alt="Product"
-              />
-              <div>
-                <p>{item.title}</p>
-                <p>₩{item.price}</p>
-                <p>{item.manufacturer}</p>
-
-              </div>
-              {/* <button
-                type="button"
-                onClick={() => {
-                  onComplete(index);
-                }}
-              >
-                선택
-              </button> */}
-              <button
-                type="button"
-                onClick={() => {
-                  onRemove(index);
-                }}
-              >
-                삭제
-              </button>
-              <button onClick={() => handleQuantity("plus")}>플러스</button>
-              <span>수량: {count}</span>
-              <button onClick={() => handleQuantity("minus")}>마이너스</button>
-            </li>
-          );
-        })}
+        {cartList &&
+          cartList.map((item, index) => {
+            return (
+              <li key={index} className={item.isCompleted ? "complete" : ""}>
+                <img src={item.imageUrl} alt="Product" />
+                <div>
+                  <p>{item.title}</p>
+                  <p>₩{item.price}</p>
+                  <p>{item.manufacturer}</p>
+                </div>
+                <span>수량:{item.quantity}</span>
+                <br></br>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    setQuantity("plus", item._id, item.quantity + 1);
+                  }}
+                >
+                  +
+                </Button>
+                <Button
+                  onClick={() => {
+                    setQuantity("minus", item._id, item.quantity - 1);
+                  }}
+                >
+                  -
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    onRemove(index);
+                  }}
+                >
+                  {" "}
+                  삭제
+                </Button>
+              </li>
+            );
+          })}
       </ol>
     </div>
   );
 };
 
-export default itemList;
+export default cartList;

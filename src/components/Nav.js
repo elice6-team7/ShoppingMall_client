@@ -1,18 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { NavContainer, LinkStyle } from "./nav-styled";
+import * as API from "../utils/api";
+
 const Nav = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8001/api/categories"
-        );
+        const response = await API.get("/categories");
         const category = response.data;
         setCategories(category);
-        // console.log("category", category);
       } catch (err) {
         console.log(err);
       }
@@ -27,13 +26,15 @@ const Nav = () => {
             <LinkStyle to="/product/all">전체 상품</LinkStyle>
           </li>
           {categories.map((category) => {
-            return (
-              <li key={category._id}>
-                <LinkStyle to={`/product/${category._id}`}>
-                  {category.title}
-                </LinkStyle>
-              </li>
-            );
+            if (!category[1]) {
+              return (
+                <li key={category[0]._id}>
+                  <LinkStyle to={`/product/${category[0]._id}`}>
+                    {category[0].title}
+                  </LinkStyle>
+                </li>
+              );
+            }
           })}
         </ul>
       </NavContainer>

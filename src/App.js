@@ -7,7 +7,6 @@ import { ROUTE_ARR } from "./routes/route";
 import { useUserDispatch } from "./context/UserContext";
 
 function App() {
-  const [cart, setCart] = useState([]);
   const [count, setCount] = useState(1);
   const dispatch = useUserDispatch();
 
@@ -33,17 +32,9 @@ function App() {
           return (
             <Route
               path={route.path}
-              element={
-                <route.element
-                  count={count}
-                  setCount={setCount}
-                  cart={cart}
-                  setCart={setCart}
-                />
-              }
+              element={<route.element count={count} setCount={setCount} />}
               key={index}
             />
-            // <Route path={route.path} element={<route.element />} key={index} />
           );
         })}
       </Routes>

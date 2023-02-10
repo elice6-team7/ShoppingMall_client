@@ -3,25 +3,31 @@ import { CounterWrapper, Button } from "./counter-styled";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Counter = () => {
-  const [count, setCount] = useState(1);
+const Counter = ({ handleQuantity, object, product }) => {
   const [disabled, setDisabled] = useState(true);
 
-  const onIncrease = () => {
-    setDisabled(false);
-    setCount(current => current + 1);
-  };
-  const onDecrease = () => {
-    if(count <= 2) setDisabled(true);
-    setCount(current => current - 1);
-  };
   return (
     <CounterWrapper>
-      <Button onClick={onDecrease} disabled={disabled}>
+      <Button
+        onClick={() => {
+          handleQuantity("minus");
+          if (object <= 2) {
+            setDisabled(true);
+          }
+        }}
+        disabled={disabled}
+      >
         <FontAwesomeIcon icon={faMinus} />
       </Button>
-      <span>{count}</span>
-      <Button onClick={onIncrease}>
+      <span>{object}</span>
+      <Button
+        onClick={() => {
+          handleQuantity("plus");
+          if (object >= 1) {
+            setDisabled(false);
+          }
+        }}
+      >
         <FontAwesomeIcon icon={faPlus} />
       </Button>
     </CounterWrapper>

@@ -13,18 +13,18 @@ export const ProductDetailWrapper = styled.div`
     flex-wrap: wrap;
     height: calc(100vh - 200px);
   }
-  
+
   & > div > div {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     flex-shrink: 0;
     box-sizing: border-box;
   }
 `;
 
-export const ProductImg = styled.div `
+export const ProductImg = styled.div`
   flex-basis: 40%;
   img {
     display: block;
@@ -32,12 +32,12 @@ export const ProductImg = styled.div `
     background-size: cover;
   }
 
-  @media screen and (max-width:1279px) {
+  @media screen and (max-width: 1279px) {
     margin-bottom: 30px;
   }
-`
+`;
 
-export const ProductInfo = styled.div `
+export const ProductInfo = styled.div`
   flex-direction: column;
   flex-basis: 40%;
   padding: 0 3%;
@@ -61,13 +61,13 @@ export const ProductInfo = styled.div `
   div:last-child {
     min-width: 420px;
     margin-top: 50px;
-    p { 
+    p {
       font-size: 16px;
       line-height: 22px;
     }
   }
 
-  @media screen and (max-width:1279px) {
+  @media screen and (max-width: 1279px) {
     flex-basis: 60%;
 
     div:last-child {
@@ -75,9 +75,9 @@ export const ProductInfo = styled.div `
       margin-bottom: 100px;
     }
   }
-`
+`;
 
-export const ButtonWrapper = styled.div``
+export const ButtonWrapper = styled.div``;
 
 export const Button = styled.button`
   display: block;
@@ -94,10 +94,9 @@ export const Button = styled.button`
     background-color: #000;
     opacity: 0.7;
   }
-`
+`;
 
-
-export const LinkStyle = styled(Link)`
+export const Button2 = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,4 +113,4 @@ export const LinkStyle = styled(Link)`
   &:hover {
     background-color: #d9d9d9;
   }
-`
+`;

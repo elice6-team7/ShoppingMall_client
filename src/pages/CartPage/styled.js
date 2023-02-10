@@ -86,6 +86,7 @@ export const CartList = styled.div`
           }
         }
       }
+      
 
       > p {
         padding-top: 10px;
@@ -103,6 +104,11 @@ export const PayInfo = styled.div`
   width: 35%;
   height: 500px;
   
+  a{
+    text-decoration-line: none;
+    color : #fff
+  }
+
   p, li {
     padding: 0 0 10px 20px;
   }

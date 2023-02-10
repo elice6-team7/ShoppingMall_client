@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import * as API from "../../utils/api";
 import { useUserDispatch } from "../../context/UserContext";
 import { ROUTE } from "../../routes/route";
+import { LayoutWrapper } from "../../components/common-styled";
 
 /**
  * 유효성검사

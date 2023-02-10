@@ -47,7 +47,7 @@ export const CategoryWrapper = styled.div`
 
     button {
       margin-left: 1%;
-      width: 5%;
+      min-width: 5%;
       font-size: 14px;
       color: #fff;
       background-color: black;

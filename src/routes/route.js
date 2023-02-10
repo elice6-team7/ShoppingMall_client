@@ -11,11 +11,12 @@ import Signup from "../pages/SignupPage/Signup";
 import CategoryManage from "../pages/AdminPage/CategoryManagePage/CategoryManage";
 import MyAccount from "../pages/MyAccountPage/MyAccount";
 import MyDetails from "../pages/MyAccountPage/MyDetailsPage/MyDetails";
-import USERORDERHISTORY from "../pages/MyAccountPage/UserOrderHistoryPage/UserOrderHistory";
+import ORDERHISTORY from "../pages/MyAccountPage/UserOrderHistoryPage/OrderHistory";
 import Productlist from "../pages/Productlistpage/Productlist";
 import Admin from "../pages/AdminPage/Admin";
-import UserOrderedDetail from "../pages/MyAccountPage/UserOrderHistoryPage/UserOrderedDetailPage/UserOrderedDetail";
+import UserOrderedDetail from "../pages/MyAccountPage/UserOrderHistoryPage/OrderedDetailPage/OrderedDetail";
 import Orderlist from "../pages/Orderlistpage/Orderlist";
+import OrderComplete from "../pages/OrderPage/OrderComplete/OrderComplete";
 
 export const ROUTE = {
   HOME: {
@@ -54,9 +55,14 @@ export const ROUTE = {
     element: Productedit,
   },
   ORDER: {
-    path: "/order/:id",
-    link: "/order/:id",
+    path: "/order",
+    link: "/order",
     element: Order,
+  },
+  ORDERCOMPELETE: {
+    path: "/order/complete",
+    link: "/order/complete",
+    element: OrderComplete,
   },
   PRODUCTALL: {
     path: "/product",
@@ -73,7 +79,7 @@ export const ROUTE = {
     link: "/product/detail/:id",
     element: ProductDetail,
   },
-  CategoryManage: {
+  CATEGORYMANAGE: {
     path: "/admin/category/manage",
     link: "/admin/category/manage",
     element: CategoryManage,
@@ -91,7 +97,7 @@ export const ROUTE = {
   USERORDERHISTORY: {
     path: "/myaccount/order",
     link: "/myaccount/order",
-    element: USERORDERHISTORY,
+    element: ORDERHISTORY,
   },
   USERORDEREDDETAIL: {
     path: "/myaccount/order/detail/:orderId",
@@ -108,9 +114,9 @@ export const ROUTE = {
     link: "/admin",
     element: Admin,
   },
-  Orderlist: {
-    path: "/orderlist",
-    link: "/orderlist",
+  ORDERLIST: {
+    path: "/order/list",
+    link: "/order/list",
     element: Orderlist,
   },
 };

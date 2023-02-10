@@ -1,18 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import * as API from "../../../utils/api";
 import { CategoryWrapper } from "./styled";
 
 const CategoryManage = () => {
   const [categoryList, setCategoryList] = useState([]);
-  const [addTitle, setAddTitle] = useState('');
-  const [anyTitle, setAnyTitle] = useState('');
+  const addInput = useRef();
   
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get("http://localhost:8001/api/categories");
+        const response = await API.get("/categories");
         const category = response.data;
-        setCategoryList(category);
+        setCategoryList(category.map(c => c[0]));
       } catch(err) {
         console.log(err);
       }
@@ -21,38 +20,42 @@ const CategoryManage = () => {
 
   const categoryAddHandler = async (e) => {
     e.preventDefault();
-    const token = window.localStorage.getItem('token');
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: { 
-        title: addTitle
+    let addValue = addInput.current.value;
+    try {
+      const response = await API.post("/categories",
+        {title: addValue}
+      );
+      const category = response.data;
+      setCategoryList(current => [...current, category]);
+      addInput.current.value = '';
+    } catch(err) {
+      console.log(err);
+      alert("해당 카테고리가 존재합니다.");
+    }
+  }
+  const categoryUpdateHandler = async (id, idx) => {
+    const inputTitle = categoryList.find((item, index) => idx === index);
+      try {
+        await API.patch(`/categories/${id}`,
+          {title: inputTitle.title},
+        );
+      } catch(err) {
+        console.log(err);
       }
+  }
+  const categoryDeleteHandler = async (id) => {
+    try {
+      await API.delete(`/categories/${id}`);
+      setCategoryList(current => current.filter(category => category._id !== id));
+    } catch(err) {
+      console.log(err);
+      alert("해당 카테고리에 상품이 존재합니다.");
     }
+  }
 
-    console.log(addTitle);
-    try {
-      await axios.post("http://localhost:8001/api/categories", config);
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  const categoryUpdateHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.patch(`http://localhost:8001/api/categories/${anyTitle}`, config);
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  const categoryDeleteHandler = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(`http://localhost:8001/api/categories/${anyTitle}`);
-    } catch(err) {
-      console.log(err);
-    }
+  const onChange = (e, idx) => {
+    setCategoryList(current => current.map((item, index) => 
+      index === idx ? ({...item, title: e.target.value}) : item ));
   }
 
   return (
@@ -68,7 +71,7 @@ const CategoryManage = () => {
                   type="text"
                   id="create"
                   placeholder="CATEGORY NAME"
-                  onChange={(e) => setAddTitle(e.target.value)} />
+                  ref={addInput} />
                 <button onClick={categoryAddHandler}>ADD</button>
               </div>
             </div>
@@ -76,12 +79,22 @@ const CategoryManage = () => {
           <div>
             <ul>
               {
-                categoryList.map(category => {
+                categoryList.map((category, idx) => {
                   return (
-                    <li key={category._id}>
-                      <input type="text" value={category.title} disabled onChange={(e) => setAnyTitle(e.target.value)} />
-                      <button onClick={categoryUpdateHandler}>UPDATE</button>
-                      <button onClick={categoryDeleteHandler}>DELETE</button>
+                    <li key={idx}>
+                      <input
+                        type="text"
+                        name={category.title}
+                        value={category.title}
+                        onChange={(e) => onChange(e, idx)} />
+                      <button onClick={(e) => {
+                        e.preventDefault();
+                        categoryUpdateHandler(category._id, idx);
+                      }}>UPDATE</button>
+                      <button onClick={(e) => {
+                        e.preventDefault();
+                        categoryDeleteHandler(category._id);
+                      }}>DELETE</button>
                     </li>
                   )
                 })

@@ -14,7 +14,7 @@ const Admin = () => {
           </AdminNav>
 
           <AdminNav>
-            <Link to="/admin/categorymanage" style={{ textDecoration: "none" }}>
+            <Link to="/admin/category/manage" style={{ textDecoration: "none" }}>
               카테고리 관리
             </Link>
           </AdminNav>

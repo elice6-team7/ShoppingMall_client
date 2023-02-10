@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
@@ -7,14 +7,15 @@ export const HeaderContainer = styled.div`
   position: fixed;
   z-index: 1;
   width: 100%;
-  padding: 30px 40px;
+  padding: 20px 40px;
   box-sizing: border-box;
   background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: #fff; */
 `;
 
 export const LogoBox = styled.div`
   img {
-    width: 200px;
+    height: 20px;
   }
 `;
 
@@ -32,11 +33,11 @@ export const HeaderNav = styled.div`
 `;
 
 export const LinkStyle = styled(Link)`
-  color: #777;
+  /* color: #777; */
   text-decoration: none;
   transition: all 0.3s;
 
   &:hover {
-    color: #000;
+    color: #777;
   }
-`
+`;

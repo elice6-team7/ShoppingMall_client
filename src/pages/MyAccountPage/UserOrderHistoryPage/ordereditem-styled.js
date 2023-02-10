@@ -24,12 +24,14 @@ export const ItemWrapper = styled.div`
   }
 `;
 export const ItemImageWrapeer = styled.div`
-  width: 160px;
-  height: 120px;
+  width: 120px;
+  height: 160px;
   background-color: #ddd;
+  margin-right: 20px;
 
   img {
-    width: 160px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `;
