@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartWrapper, CartList, PayInfo } from "./styled";
 
 import CartView from "./CartView";
@@ -11,6 +11,7 @@ const Cart = ({ count, setCount }) => {
   const [total, setTotal] = useState(0);
   const [delivery, setDelivery] = useState(0);
   const [cartList, setCartList] = useState([]);
+  const navigator = useNavigate();
 
   // 로컬스토리지의 cart 불러옴
   useEffect(() => {
@@ -18,9 +19,10 @@ const Cart = ({ count, setCount }) => {
   }, []);
 
   // 장바구니 수량 버튼에 적용할 함수
-  const setQuantity = (type, _id, quantity) => {
+  const setQuantity = (type, _id, quantity) => { 
     if (type === "plus") {
       const found = cartList.filter((item) => item._id === _id)[0];
+      const size = found.size;
       const idx = cartList.indexOf(found);
       const cartItem = {
         _id: found._id,
@@ -29,6 +31,7 @@ const Cart = ({ count, setCount }) => {
         price: found.price,
         manufacturer: found.manufacturer,
         quantity: quantity,
+        size: size,
       };
 
       setCartList([
@@ -49,6 +52,7 @@ const Cart = ({ count, setCount }) => {
 
       // 장바구니에 있는 상품
       const found = cartList.filter((item) => item._id === _id)[0];
+      const size = found.size;
       cartList.length;
       const idx = cartList.indexOf(found);
       const cartItem = {
@@ -58,6 +62,7 @@ const Cart = ({ count, setCount }) => {
         price: found.price,
         manufacturer: found.manufacturer,
         quantity: quantity,
+        size: size,
       };
 
       setCartList([
@@ -146,20 +151,37 @@ const Cart = ({ count, setCount }) => {
             >
               쇼핑백 비우기
             </button>
-            <Button>
-              <Link
+              {/* <Link
                 to="/order"
-                state={{
-                  count,
-                  total,
-                  // // product: cartList.title,
-                  // // productId: cartList._id,
-                  // productSize,
+                state= {{
+                  count: '',
+                  total: '',
+                  product: '',
+                  productId: '',
+                  productSize: '',
                 }}
               >
                 주문하기
-              </Link>
-            </Button>
+              </Link> */}
+              <button onClick={() => {
+                const token = localStorage.getItem("token");
+                try {
+                  if(token) {
+                    navigator('/order', {
+                      state: {
+                        count: 0,
+                        total: 0,
+                        product: '',
+                        productId: '',
+                        productSize: '',
+                      }
+                    })
+                  }
+                } catch(e) {
+                  alert("회원 전용 서비스입니다.");
+                  navigate("/login");
+                }
+              }}>주문하기</button>
           </PayInfo>
         </div>
       </CartWrapper>
