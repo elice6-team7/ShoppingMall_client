@@ -208,12 +208,12 @@ const Order = () => {
                 </li>
                 <li>
                   상품 금액
-                  <span> {productPrice}원</span>
+                  <span> {Number(productPrice).toLocaleString("ko-KR")}원</span>
                 </li>
               </ul>
 
               <p>
-                총 결제금액 <span>{productPrice + 3000}원</span>
+                총 결제금액 <span>{Number(productPrice).toLocaleString("ko-KR")}원</span>
               </p>
 
               {/* <p>

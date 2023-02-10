@@ -81,6 +81,7 @@ export const ProductWrapper = styled.div`
   div {
     text-align: center;
     margin-top: 20px;
+    color: #000 !important;
     p {
       margin-bottom: 5px;
       font-size: 20px;
