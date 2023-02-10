@@ -69,18 +69,22 @@ const Signup = () => {
   }, [password, passwordConfirm]);
 
   /** 회원가입 API */
-  const signupAPI = async () => {
+  const signupAPI = async (userData) => {
     // await post()
     try {
-      await API.post("/users/register", {
+      const { data } = await API.post("/users/register", {
         name,
         email,
         password,
       });
-
-      navigate(ROUTE.LOGIN.link);
+      navigate(ROUTE.HOME.link);
+      localStorage.setItem("token", data.token);
+      dispatch({
+        type: "LOGIN",
+        // isAdmin: data.isAdmin,
+      });
     } catch (err) {
-      console.log("Error", err?.response?.data);
+      console.log("Error", err.response.data);
       alert("이미 사용중인 이메일입니다.");
     }
   };

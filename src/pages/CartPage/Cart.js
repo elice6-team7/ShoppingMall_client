@@ -152,8 +152,8 @@ const Cart = ({ count, setCount }) => {
                 state={{
                   count,
                   total,
-                  // product,
-                  // productId,
+                  // // product: cartList.title,
+                  // // productId: cartList._id,
                   // productSize,
                 }}
               >
