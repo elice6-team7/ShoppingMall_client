@@ -64,6 +64,8 @@ const Product = ({ count, setCount }) => {
       price: product.price,
       manufacturer: product.manufacturer,
       quantity: quantity,
+      size: options.filter((size) => size.checked === true)[0]
+      .value,
     };
 
     // 값만 수정된 새로운 배열 리턴
@@ -87,6 +89,8 @@ const Product = ({ count, setCount }) => {
       price: product.price,
       manufacturer: product.manufacturer,
       quantity: object,
+      size: options.filter((size) => size.checked === true)[0]
+      .value,
     };
 
     if(carts === null) { 
@@ -162,6 +166,14 @@ const Product = ({ count, setCount }) => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
+        // localStorage.setItem("cart", JSON.stringify({
+        //   count: object,
+        //   total: product.price * object,
+        //   product: product.title,
+        //   productId: product._id,
+        //   productSize: options.filter((size) => size.checked === true)[0]
+        //     .value,
+        // }))
         navigate("/order", {
           state: {
             count: object,
