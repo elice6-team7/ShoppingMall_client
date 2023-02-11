@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // const serverUrl = "http://localhost:8001/api";
-const serverUrl = "http://kdt-ai6-team07.elicecoding.com/api";
+// const serverUrl = "http://kdt-ai6-team07.elicecoding.com/api";
+  const serverUrl = "/api"
 
 // endpoint : serverUrl 뒤에 오는 path
 // ex) 로그인일 때, endpoint는 '/login'
