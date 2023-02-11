@@ -16,23 +16,21 @@ const cartList = ({ cartList, onRemove, setQuantity }) => {
                   <p>{item.manufacturer}</p>
                 </div>
                 <span>수량:{item.quantity}</span>
-                <br></br>
-                <Button
-                  variant="primary"
+                <button
                   onClick={() => {
                     setQuantity("plus", item._id, item.quantity + 1);
                   }}
                 >
                   +
-                </Button>
-                <Button
+                </button>
+                <button
                   onClick={() => {
                     setQuantity("minus", item._id, item.quantity - 1);
                   }}
                 >
                   -
-                </Button>
-                <Button
+                </button>
+                <button
                   type="button"
                   onClick={() => {
                     onRemove(index);
@@ -40,7 +38,7 @@ const cartList = ({ cartList, onRemove, setQuantity }) => {
                 >
                   {" "}
                   삭제
-                </Button>
+                </button>
               </li>
             );
           })}

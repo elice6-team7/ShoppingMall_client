@@ -37,7 +37,9 @@ export const LinkStyle = styled(Link)`
   text-decoration: none;
   transition: all 0.3s;
 
+  color: #000 !important;
+
   &:hover {
-    color: #777;
+    color: #777 !important;
   }
 `;

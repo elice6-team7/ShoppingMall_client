@@ -5,6 +5,11 @@ export const CartWrapper = styled.div`
   left: 300px;
   top: 100px;
   width: calc(100% - 300px);
+  
+  @media screen and (max-width:1279px) {
+    min-width: 1279px;
+  }
+
 
   & > div {
     display: flex;
@@ -31,15 +36,22 @@ export const CartWrapper = styled.div`
 export const CartList = styled.div`
   width: 62.5%;
   margin: 0 2.5% 0 0;
-  img {
-        width: 150px;
-        margin: 0 20px;
+  ol {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-basis: 40px;
+      height: 40px;
+      margin-left: 10px;
+      background-color: #fff;
+      border: 1px solid #d9d9d9;
+      transition: all 0.2s;
+      &:hover {
+        background-color: #000;
+        color: #fff;
       }
-  label {
-    margin-left: 10px;
-  }
-
-  ul {
+    }
     li {
       display: flex;
       margin-bottom: 40px;
@@ -52,6 +64,7 @@ export const CartList = styled.div`
       > div {
         display: flex;
         flex-direction: column;
+        min-width: 400px;
         padding: 10px 20px;
         box-sizing: border-box;
         p {
@@ -103,6 +116,11 @@ export const PayInfo = styled.div`
   padding-top: 100px;
   width: 35%;
   height: 500px;
+
+  @media screen and (max-width:1600px) {
+    position: relative;
+
+  }
   
   a{
     text-decoration-line: none;

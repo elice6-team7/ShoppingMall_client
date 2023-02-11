@@ -64,6 +64,8 @@ const Product = ({ count, setCount }) => {
       price: product.price,
       manufacturer: product.manufacturer,
       quantity: quantity,
+      size: options.filter((size) => size.checked === true)[0]
+      .value,
     };
 
     // 값만 수정된 새로운 배열 리턴
@@ -86,9 +88,17 @@ const Product = ({ count, setCount }) => {
       title: product.title,
       price: product.price,
       manufacturer: product.manufacturer,
-
       quantity: object,
+      size: options.filter((size) => size.checked === true)[0]
+      .value,
     };
+
+    if(carts === null) { 
+      // console.log("값이 없음");
+      setCarts([cartItem]);
+      localStorage.setItem("cart", JSON.stringify([cartItem]));
+      return;
+    }
 
     // found가 있으면 중복된 물건
     const found = carts.find((el) => el._id === cartItem._id);
@@ -156,6 +166,14 @@ const Product = ({ count, setCount }) => {
     try {
       const token = localStorage.getItem("token");
       if (token) {
+        // localStorage.setItem("cart", JSON.stringify({
+        //   count: object,
+        //   total: product.price * object,
+        //   product: product.title,
+        //   productId: product._id,
+        //   productSize: options.filter((size) => size.checked === true)[0]
+        //     .value,
+        // }))
         navigate("/order", {
           state: {
             count: object,
@@ -197,8 +215,11 @@ const Product = ({ count, setCount }) => {
                 <RadioBox options={options} radioProps={handleRadioChange} />
                 <Button
                   onClick={() => {
-                    handleCart();
-                    alert("상품이 장바구니에 담겼습니다.");
+                    if(options.filter((size) => size.checked === true).length === 0) alert("사이즈를 선택해주세요.");
+                    else {
+                      handleCart();
+                      alert("상품이 장바구니에 담겼습니다.");
+                    }
                   }}
                 >
                   쇼핑백 담기

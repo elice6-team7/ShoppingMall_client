@@ -5,13 +5,13 @@ import { OrderInfo, OrderWrapper, PayInfo } from "./styled";
 import * as API from "../../../utils/api";
 import { getUserId } from "../../../utils/utils";
 import { ROUTE } from "../../../routes/route";
+// import { async } from "q";
 
 const Order = () => {
   const location = useLocation();
   const navigator = useNavigate();
-
-  const { orderInfo, products } = location.state;
   const { count, total, product, productId, productSize } = location.state;
+  const { orderInfo, products } = location.state;
 
   const [editOrderInfo, setEditOrderInfo] = useState(null);
   const [editProducts, setEditProducts] = useState(null);
@@ -27,6 +27,8 @@ const Order = () => {
   const inputAddress = useRef();
   const inputAddress2 = useRef();
   const inputZipcode = useRef();
+
+  const data = JSON.parse(localStorage.getItem("cart"));
 
   // console.log(count, total, product, productId, productSize);
 
@@ -45,20 +47,39 @@ const Order = () => {
 
       const response = await API.post("/order", data);
       const orderData = response.data;
-      const odData = {
-        orderId: orderData._id,
-        productId: productId,
-        productQuantity: count,
-        productSize: productSize,
-        _id: userId,
-      };
+      
+      if(productId === '') {
+        const data = JSON.parse(localStorage.getItem("cart"));
+        data.map(async (item) => {
+          const odData = {
+            orderId: orderData._id,
+            productId: item._id,
+            productQuantity: item.quantity,
+            productSize: item.size,
+            _id: userId,
+          };
+          console.log(odData);
+          localStorage.removeItem("cart");
+          await API.post("/order/product", odData);
+        })
+      } else {
+        const odData = {
+          orderId: orderData._id,
+          productId: productId,
+          productQuantity: count,
+          productSize: productSize,
+          _id: userId,
+        };
+        await API.post("/order/product", odData);
+      }
 
-      await API.post("/order/product", odData);
+      
 
-      console.log(odData);
+      // console.log(odData);
 
       navigator("/order/complete");
     } catch (err) {
+      console.log(localStorage.getItem("cart"));
       console.log(total, product, productId, productSize);
       console.log(err);
     }
@@ -119,6 +140,17 @@ const Order = () => {
   const editOrderHandler = () => {
     editOrderAPI();
   };
+  
+  const [totals, setTotals] = useState(0);
+  useEffect(() => {
+    if(product === '') {
+      const price = data.map(item => item.price);
+      price.forEach((item) => {
+        console.log(item);
+        setTotals(current => current = current + item)
+      });
+    }
+  }, [])
 
   return (
     <>
@@ -200,20 +232,23 @@ const Order = () => {
               <ul>
                 <li>
                   주문 상품
+                  { product === '' && data.map((item, idx) => 
+                  (<span key={idx}>{item.title}</span>))}
                   {product && <span> {product}</span>}
                   {editProducts &&
                     editProducts.map((item, index) => {
                       return <span key={index}>{item.productId.title}</span>;
                     })}
                 </li>
-                <li>
-                  상품 금액
-                  <span> {productPrice}원</span>
-                </li>
               </ul>
 
               <p>
-                총 결제금액 <span>{productPrice + 3000}원</span>
+                총 결제금액 
+                <span>
+                  {product !== '' && Number(productPrice).toLocaleString("ko-KR")}
+                  {product === '' && Number(totals).toLocaleString("ko-KR")}
+                  원
+                </span>
               </p>
 
               {/* <p>
